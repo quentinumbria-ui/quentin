@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&amp;display=swap');
+  </style>
+  <text x="200" y="175" font-family="'Bodoni Moda', 'Didot', 'Times New Roman', serif" font-size="140" font-weight="700" fill="#000000" text-anchor="middle" letter-spacing="8">SIL</text>
+  <text x="200" y="340" font-family="'Bodoni Moda', 'Didot', 'Times New Roman', serif" font-size="140" font-weight="700" fill="#000000" text-anchor="middle" letter-spacing="8">ËN</text>
+</svg>
