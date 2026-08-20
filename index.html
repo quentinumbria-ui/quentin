@@ -1,121 +1,94 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SILËN — Bar & Lounge</title>
-  <meta name="description" content="SILËN — Une expérience sensorielle unique. Bar & lounge d'exception au cœur de la nuit." />
+  <title>SILËN — Crafting Exceptional Hospitality</title>
+  <meta name="description" content="SILËN Agency — Luxury staffing, mixology and event production. We craft exceptional hospitality experiences for the world's most prestigious brands." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════ PRELOADER ═══════════════ -->
+  <!-- ══════ PRELOADER ══════ -->
   <div id="preloader">
-    <div class="preloader-logo">
-      <span class="preloader-letter" style="--i:0">S</span>
-      <span class="preloader-letter" style="--i:1">I</span>
-      <span class="preloader-letter" style="--i:2">L</span>
-      <span class="preloader-letter" style="--i:3">Ë</span>
-      <span class="preloader-letter" style="--i:4">N</span>
+    <div class="preloader-inner">
+      <span class="preloader-logo">SILËN</span>
+      <div class="preloader-line"><span></span></div>
     </div>
-    <div class="preloader-bar"><div class="preloader-fill"></div></div>
   </div>
 
-  <!-- ═══════════════ NAVIGATION ═══════════════ -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo" aria-label="SILËN accueil">
-      <svg viewBox="0 0 160 40" width="120" height="30">
-        <text x="80" y="32" font-family="'Bodoni Moda','Didot',serif" font-size="36" font-weight="700"
-              fill="currentColor" text-anchor="middle" letter-spacing="6">SILËN</text>
-      </svg>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about" data-nav>À propos</a></li>
-      <li><a href="#experiences" data-nav>Expériences</a></li>
-      <li><a href="#gallery" data-nav>Galerie</a></li>
-      <li><a href="#contact" data-nav>Contact</a></li>
-    </ul>
-    <button class="nav-burger" id="burger" aria-label="Menu">
-      <span></span><span></span><span></span>
+  <!-- ══════ HEADER ══════ -->
+  <header id="header">
+    <a href="#" class="header-logo">SILËN</a>
+    <nav class="header-nav" id="desktop-nav">
+      <a href="#hero">Home</a>
+      <a href="#agency">Agency</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#journal">Journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="header-burger" id="burger" aria-label="Menu">
+      <span></span><span></span>
     </button>
-  </nav>
+  </header>
 
-  <!-- ═══════════════ MOBILE MENU ═══════════════ -->
+  <!-- ══════ MOBILE MENU ══════ -->
   <div id="mobile-menu" class="mobile-menu">
-    <ul>
-      <li><a href="#about" data-mobile-nav>À propos</a></li>
-      <li><a href="#experiences" data-mobile-nav>Expériences</a></li>
-      <li><a href="#gallery" data-mobile-nav>Galerie</a></li>
-      <li><a href="#contact" data-mobile-nav>Contact</a></li>
-    </ul>
+    <nav>
+      <a href="#hero" data-mobile>Home</a>
+      <a href="#agency" data-mobile>Agency</a>
+      <a href="#services" data-mobile>Services</a>
+      <a href="#projects" data-mobile>Projects</a>
+      <a href="#journal" data-mobile>Journal</a>
+      <a href="#contact" data-mobile>Contact</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <span>Paris, France</span>
+    </div>
   </div>
 
-  <!-- ═══════════════ HERO — VIDEO ═══════════════ -->
+  <!-- ══════ HERO ══════ -->
   <section id="hero" class="hero">
-    <div class="hero-video-wrap">
-      <video id="hero-video" autoplay muted loop playsinline preload="auto">
+    <div class="hero-media">
+      <video autoplay muted loop playsinline preload="auto" id="hero-video">
         <source src="https://cdn.coverr.co/videos/coverr-a-bartender-preparing-a-cocktail-1573/1080p.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay"></div>
-      <canvas id="hero-canvas"></canvas>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-up">Bar &amp; Lounge</p>
-      <h1 class="hero-title">
-        <span class="reveal-up" style="--d:.15s">S</span>
-        <span class="reveal-up" style="--d:.22s">I</span>
-        <span class="reveal-up" style="--d:.29s">L</span>
-        <span class="reveal-up" style="--d:.36s">Ë</span>
-        <span class="reveal-up" style="--d:.43s">N</span>
-      </h1>
-      <p class="hero-subtitle reveal-up" style="--d:.55s">Une expérience sensorielle unique</p>
-      <a href="#about" class="hero-cta reveal-up" style="--d:.7s">
-        <span>Découvrir</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M7 17L17 7M17 7H7M17 7v10"/>
-        </svg>
-      </a>
+      <h1 class="hero-title reveal-fade">Crafting Exceptional<br><em>Hospitality</em></h1>
+      <p class="hero-sub reveal-fade" style="--d:.2s">Luxury staffing, mixology and event production.</p>
+      <a href="#agency" class="hero-btn reveal-fade" style="--d:.4s">Discover SILËN</a>
     </div>
-    <div class="hero-scroll-indicator">
+    <div class="hero-scroll-cue">
       <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- ═══════════════ ABOUT ═══════════════ -->
-  <section id="about" class="section about">
+  <!-- ══════ AGENCY (WHO WE ARE) ══════ -->
+  <section id="agency" class="section section--light agency">
     <div class="container">
-      <div class="section-grid">
-        <div class="section-left">
-          <span class="section-label reveal-up">01 — À propos</span>
-          <h2 class="section-title reveal-up">L'art du<br><em>silence</em></h2>
-        </div>
-        <div class="section-right">
-          <p class="section-text reveal-up">
-            SILËN est né d'une vision : créer un espace où le temps se suspend.
-            Un lieu où chaque détail — de la lumière tamisée aux cocktails d'exception —
-            est pensé pour éveiller les sens et apaiser l'esprit.
+      <div class="agency-layout">
+        <div class="agency-text">
+          <span class="section-label reveal-fade">Who we are</span>
+          <h2 class="agency-heading reveal-fade" style="--d:.1s">
+            SILËN creates hospitality experiences where every interaction reflects the image of the brands we represent.
+          </h2>
+          <p class="agency-body reveal-fade" style="--d:.2s">
+            Our craft is not about providing staff.<br>
+            We orchestrate experiences.
           </p>
-          <p class="section-text reveal-up">
-            Notre bar &amp; lounge est une invitation au raffinement.
-            Dans une atmosphère feutrée aux accents violets et dorés,
-            nos mixologues composent des créations uniques,
-            véritables œuvres d'art liquides qui racontent une histoire.
-          </p>
-          <div class="about-stats reveal-up">
-            <div class="stat">
-              <span class="stat-number" data-count="47">0</span>
-              <span class="stat-label">Cocktails signature</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number" data-count="12">0</span>
-              <span class="stat-label">Années d'expertise</span>
-            </div>
-            <div class="stat">
-              <span class="stat-number" data-count="3">0</span>
-              <span class="stat-label">Espaces privatifs</span>
+        </div>
+        <div class="agency-image reveal-fade" style="--d:.15s">
+          <div class="agency-img-inner" style="background: linear-gradient(135deg, #e8e4df 0%, #d5cfc7 50%, #c8c1b6 100%);">
+            <div class="agency-img-placeholder">
+              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(0,0,0,.15)" stroke-width=".8"><circle cx="40" cy="32" r="12"/><path d="M16 68c0-13.3 10.7-24 24-24s24 10.7 24 24"/></svg>
             </div>
           </div>
         </div>
@@ -123,238 +96,298 @@
     </div>
   </section>
 
-  <!-- ═══════════════ MARQUEE ═══════════════ -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span>Cocktails d'exception</span>
-      <span class="marquee-dot">✦</span>
-      <span>Ambiance feutrée</span>
-      <span class="marquee-dot">✦</span>
-      <span>Mixologie créative</span>
-      <span class="marquee-dot">✦</span>
-      <span>Espaces privés</span>
-      <span class="marquee-dot">✦</span>
-      <span>Cocktails d'exception</span>
-      <span class="marquee-dot">✦</span>
-      <span>Ambiance feutrée</span>
-      <span class="marquee-dot">✦</span>
-      <span>Mixologie créative</span>
-      <span class="marquee-dot">✦</span>
-      <span>Espaces privés</span>
-      <span class="marquee-dot">✦</span>
-    </div>
-  </div>
-
-  <!-- ═══════════════ EXPERIENCES ═══════════════ -->
-  <section id="experiences" class="section experiences">
+  <!-- ══════ SERVICES (OUR EXPERTISE) ══════ -->
+  <section id="services" class="section section--dark services">
     <div class="container">
-      <span class="section-label reveal-up">02 — Expériences</span>
-      <h2 class="section-title reveal-up">Ce qui nous<br><em>distingue</em></h2>
+      <span class="section-label section-label--light reveal-fade">Our Expertise</span>
+      <div class="services-grid">
 
-      <div class="exp-grid">
-        <article class="exp-card reveal-up" style="--d:.1s">
-          <div class="exp-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M24 4v8M24 36v8M4 24h8M36 24h8M8.5 8.5l5.7 5.7M33.8 33.8l5.7 5.7M8.5 39.5l5.7-5.7M33.8 14.2l5.7-5.7"/>
-              <circle cx="24" cy="24" r="8"/>
-            </svg>
+        <a href="#" class="service-card reveal-fade" style="--d:.05s">
+          <div class="service-img" style="background: linear-gradient(180deg, #2a2825 0%, #1e1c19 100%);">
+            <span class="service-tag">01</span>
           </div>
-          <h3>Ambiance Sensorielle</h3>
-          <p>Lumières, sons et parfums orchestrés pour une immersion totale dans un univers hors du temps.</p>
-        </article>
+          <div class="service-info">
+            <h3>Premium Staffing</h3>
+            <ul>
+              <li>Maîtres d'hôtel</li>
+              <li>Serveurs</li>
+              <li>Hôtes &amp; Hôtesses</li>
+              <li>Runner</li>
+              <li>Barista</li>
+              <li>Chef privé</li>
+            </ul>
+          </div>
+        </a>
 
-        <article class="exp-card reveal-up" style="--d:.2s">
-          <div class="exp-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M14 44l2-10M34 44l-2-10M10 34h28M16 34V18c0-4.4 3.6-8 8-8s8 3.6 8 8v16"/>
-              <circle cx="24" cy="12" r="3"/>
-            </svg>
+        <a href="#" class="service-card reveal-fade" style="--d:.12s">
+          <div class="service-img" style="background: linear-gradient(180deg, #262520 0%, #1a1916 100%);">
+            <span class="service-tag">02</span>
           </div>
-          <h3>Mixologie d'Art</h3>
-          <p>Nos créations racontent des histoires. Chaque cocktail est une composition unique de saveurs et d'émotions.</p>
-        </article>
+          <div class="service-info">
+            <h3>Mixology Experiences</h3>
+            <ul>
+              <li>Cocktails</li>
+              <li>Champagne Bars</li>
+              <li>Coffee Bars</li>
+              <li>Signature Drinks</li>
+              <li>Ice Concepts</li>
+            </ul>
+          </div>
+        </a>
 
-        <article class="exp-card reveal-up" style="--d:.3s">
-          <div class="exp-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="6" y="14" width="36" height="24" rx="3"/>
-              <path d="M6 22h36M18 14V8M30 14V8"/>
-              <circle cx="24" cy="30" r="4"/>
-            </svg>
+        <a href="#" class="service-card reveal-fade" style="--d:.19s">
+          <div class="service-img" style="background: linear-gradient(180deg, #24261f 0%, #181a15 100%);">
+            <span class="service-tag">03</span>
           </div>
-          <h3>Événements Privés</h3>
-          <p>Trois espaces exclusifs pour vos moments précieux. Du cocktail dînatoire à la soirée sur mesure.</p>
-        </article>
+          <div class="service-info">
+            <h3>Event Production</h3>
+            <ul>
+              <li>Production</li>
+              <li>Project Management</li>
+              <li>Venue Sourcing</li>
+              <li>Supplier Coordination</li>
+              <li>Logistics</li>
+            </ul>
+          </div>
+        </a>
 
-        <article class="exp-card reveal-up" style="--d:.4s">
-          <div class="exp-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M4 40h40M12 40V24l12-16 12 16v16M20 40v-8h8v8"/>
-              <path d="M20 26h8"/>
-            </svg>
+        <a href="#" class="service-card reveal-fade" style="--d:.26s">
+          <div class="service-img" style="background: linear-gradient(180deg, #252525 0%, #191919 100%);">
+            <span class="service-tag">04</span>
           </div>
-          <h3>Architecture d'Exception</h3>
-          <p>Un design intérieur signé, où chaque meuble et chaque texture contribuent à l'atmosphère unique de SILËN.</p>
-        </article>
+          <div class="service-info">
+            <h3>Luxury Hospitality Consulting</h3>
+            <ul>
+              <li>Guest Experience</li>
+              <li>Operational Design</li>
+              <li>Hospitality Strategy</li>
+              <li>Luxury Service Standards</li>
+            </ul>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ PARALLAX STRIP ═══════════════ -->
-  <section class="parallax-strip">
-    <div class="parallax-inner" id="parallax-strip">
-      <div class="parallax-text">
-        <span>L'excellence</span>
-        <em>silencieuse</em>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ GALLERY ═══════════════ -->
-  <section id="gallery" class="section gallery">
+  <!-- ══════ PROCESS (HOW WE WORK) ══════ -->
+  <section class="section section--light process">
     <div class="container">
-      <span class="section-label reveal-up">03 — Galerie</span>
-      <h2 class="section-title reveal-up">Nos<br><em>espaces</em></h2>
-
-      <div class="gallery-grid">
-        <div class="gallery-item gallery-item--wide reveal-up">
-          <div class="gallery-img" style="--bg: linear-gradient(135deg, #1a0030 0%, #3d0066 40%, #0d001a 100%)">
-            <div class="gallery-placeholder">
-              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1">
-                <circle cx="40" cy="40" r="30"/><path d="M28 40l8 8 16-16"/>
-              </svg>
-              <span>Le Bar Principal</span>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <h4>Le Bar Principal</h4>
-            <p>Comptoir en marbre et lumières violettes</p>
-          </div>
+      <span class="section-label reveal-fade">How we work</span>
+      <h2 class="process-title reveal-fade" style="--d:.1s">A refined process,<br><em>from vision to delivery.</em></h2>
+      <div class="process-timeline reveal-fade" style="--d:.2s">
+        <div class="process-step">
+          <span class="step-num">01</span>
+          <div class="step-dot"></div>
+          <h4>Discover</h4>
+          <p>Understanding your vision, brand and audience.</p>
         </div>
-
-        <div class="gallery-item reveal-up" style="--d:.15s">
-          <div class="gallery-img" style="--bg: linear-gradient(135deg, #0d001a 0%, #330055 50%, #1a0030 100%)">
-            <div class="gallery-placeholder">
-              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1">
-                <rect x="15" y="15" width="50" height="50" rx="5"/>
-                <circle cx="40" cy="40" r="12"/>
-              </svg>
-              <span>Salon VIP</span>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <h4>Salon VIP</h4>
-            <p>Intimité et raffinement</p>
-          </div>
+        <div class="process-line"></div>
+        <div class="process-step">
+          <span class="step-num">02</span>
+          <div class="step-dot"></div>
+          <h4>Design</h4>
+          <p>Crafting the experience concept and service choreography.</p>
         </div>
-
-        <div class="gallery-item reveal-up" style="--d:.25s">
-          <div class="gallery-img" style="--bg: linear-gradient(135deg, #1a0020 0%, #440044 50%, #200030 100%)">
-            <div class="gallery-placeholder">
-              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1">
-                <path d="M20 60l15-20 10 12 15-24 10 20"/>
-                <circle cx="55" cy="25" r="6"/>
-              </svg>
-              <span>Terrasse</span>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <h4>La Terrasse</h4>
-            <p>Sous les étoiles</p>
-          </div>
+        <div class="process-line"></div>
+        <div class="process-step">
+          <span class="step-num">03</span>
+          <div class="step-dot"></div>
+          <h4>Source</h4>
+          <p>Selecting and briefing the finest professionals.</p>
         </div>
-
-        <div class="gallery-item gallery-item--tall reveal-up" style="--d:.1s">
-          <div class="gallery-img" style="--bg: linear-gradient(180deg, #220033 0%, #550055 40%, #1a0030 100%)">
-            <div class="gallery-placeholder">
-              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1">
-                <path d="M30 65V25l20-10v50"/>
-                <circle cx="35" cy="45" r="3"/><circle cx="45" cy="35" r="3"/>
-              </svg>
-              <span>Cave à Vins</span>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <h4>La Cave</h4>
-            <p>Sélection de vins rares</p>
-          </div>
+        <div class="process-line"></div>
+        <div class="process-step">
+          <span class="step-num">04</span>
+          <div class="step-dot"></div>
+          <h4>Produce</h4>
+          <p>Managing every detail of logistics and production.</p>
         </div>
-
-        <div class="gallery-item reveal-up" style="--d:.2s">
-          <div class="gallery-img" style="--bg: linear-gradient(135deg, #0d0020 0%, #3d0055 50%, #110022 100%)">
-            <div class="gallery-placeholder">
-              <svg viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1">
-                <ellipse cx="40" cy="50" rx="25" ry="10"/>
-                <path d="M40 15v35M30 20h20"/>
-              </svg>
-              <span>Cocktails</span>
-            </div>
-          </div>
-          <div class="gallery-caption">
-            <h4>Nos Créations</h4>
-            <p>L'art en verre</p>
-          </div>
+        <div class="process-line"></div>
+        <div class="process-step">
+          <span class="step-num">05</span>
+          <div class="step-dot"></div>
+          <h4>Deliver</h4>
+          <p>Flawless execution on the day.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ CONTACT ═══════════════ -->
-  <section id="contact" class="section contact">
+  <!-- ══════ PROJECTS ══════ -->
+  <section id="projects" class="section section--light projects">
     <div class="container">
-      <div class="section-grid contact-grid">
-        <div class="section-left">
-          <span class="section-label reveal-up">04 — Contact</span>
-          <h2 class="section-title reveal-up">Venez vivre<br><em>l'expérience</em></h2>
-          <div class="contact-info reveal-up">
-            <div class="contact-item">
-              <span class="contact-icon">📍</span>
-              <div>
-                <strong>Adresse</strong>
-                <p>42 Rue de la Nuit<br>75008 Paris, France</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="contact-icon">🕐</span>
-              <div>
-                <strong>Horaires</strong>
-                <p>Mar — Sam : 19h — 3h<br>Dim — Lun : Fermé</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <span class="contact-icon">📞</span>
-              <div>
-                <strong>Réservation</strong>
-                <p>+33 1 42 00 00 00<br>reservations@silen.fr</p>
-              </div>
-            </div>
+      <span class="section-label reveal-fade">Selected Projects</span>
+      <div class="projects-gallery">
+
+        <a href="#" class="project-item project-item--large reveal-fade" style="--d:.05s">
+          <div class="project-img" style="background: linear-gradient(135deg, #d5cfc7 0%, #c0b8ac 50%, #b0a898 100%);"></div>
+          <div class="project-meta">
+            <h4>Balenciaga</h4>
+            <span>Private Dinner — 2026</span>
+            <span class="project-cat">Luxury Hospitality</span>
           </div>
+        </a>
+
+        <a href="#" class="project-item reveal-fade" style="--d:.1s">
+          <div class="project-img" style="background: linear-gradient(135deg, #c8c1b6 0%, #b5ae9f 100%);"></div>
+          <div class="project-meta">
+            <h4>Miu Miu</h4>
+            <span>Fashion Week — 2026</span>
+            <span class="project-cat">Event Production</span>
+          </div>
+        </a>
+
+        <a href="#" class="project-item reveal-fade" style="--d:.15s">
+          <div class="project-img" style="background: linear-gradient(135deg, #ddd8d0 0%, #c5bfb5 100%);"></div>
+          <div class="project-meta">
+            <h4>Goldman Sachs</h4>
+            <span>Annual Gala — 2025</span>
+            <span class="project-cat">Premium Staffing</span>
+          </div>
+        </a>
+
+        <a href="#" class="project-item project-item--large reveal-fade" style="--d:.08s">
+          <div class="project-img" style="background: linear-gradient(135deg, #d0ccc4 0%, #bab4a8 50%, #a8a294 100%);"></div>
+          <div class="project-meta">
+            <h4>Isabel Marant</h4>
+            <span>Product Launch — 2026</span>
+            <span class="project-cat">Mixology Experience</span>
+          </div>
+        </a>
+
+        <a href="#" class="project-item reveal-fade" style="--d:.12s">
+          <div class="project-img" style="background: linear-gradient(135deg, #ccc8c0 0%, #b8b2a5 100%);"></div>
+          <div class="project-meta">
+            <h4>Fever</h4>
+            <span>Immersive Event — 2025</span>
+            <span class="project-cat">Event Production</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ CLIENTS ══════ -->
+  <section class="clients">
+    <div class="clients-track">
+      <span>Balenciaga</span><span class="clients-dot">·</span>
+      <span>Miu Miu</span><span class="clients-dot">·</span>
+      <span>Isabel Marant</span><span class="clients-dot">·</span>
+      <span>KCD</span><span class="clients-dot">·</span>
+      <span>Fever</span><span class="clients-dot">·</span>
+      <span>WSN</span><span class="clients-dot">·</span>
+      <span>Shortcut</span><span class="clients-dot">·</span>
+      <span>Goldman Sachs</span><span class="clients-dot">·</span>
+      <span>GetChef</span><span class="clients-dot">·</span>
+      <span>Balenciaga</span><span class="clients-dot">·</span>
+      <span>Miu Miu</span><span class="clients-dot">·</span>
+      <span>Isabel Marant</span><span class="clients-dot">·</span>
+      <span>KCD</span><span class="clients-dot">·</span>
+      <span>Fever</span><span class="clients-dot">·</span>
+      <span>WSN</span><span class="clients-dot">·</span>
+      <span>Shortcut</span><span class="clients-dot">·</span>
+      <span>Goldman Sachs</span><span class="clients-dot">·</span>
+      <span>GetChef</span><span class="clients-dot">·</span>
+    </div>
+  </section>
+
+  <!-- ══════ WHY SILËN (NUMBERS) ══════ -->
+  <section class="section section--light numbers">
+    <div class="container">
+      <span class="section-label reveal-fade">Why SILËN</span>
+      <div class="numbers-grid">
+        <div class="number-item reveal-fade">
+          <span class="number-val" data-count="150">0</span><span class="number-plus">+</span>
+          <span class="number-lbl">Events Delivered</span>
         </div>
-        <div class="section-right">
-          <form class="contact-form reveal-up" id="contact-form">
+        <div class="number-item reveal-fade" style="--d:.1s">
+          <span class="number-val" data-count="300">0</span><span class="number-plus">+</span>
+          <span class="number-lbl">Premium Professionals</span>
+        </div>
+        <div class="number-item reveal-fade" style="--d:.2s">
+          <span class="number-val" data-count="40">0</span><span class="number-plus">+</span>
+          <span class="number-lbl">Luxury Brands</span>
+        </div>
+        <div class="number-item reveal-fade" style="--d:.3s">
+          <span class="number-val" data-count="98">0</span><span class="number-plus">%</span>
+          <span class="number-lbl">Client Satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ JOURNAL ══════ -->
+  <section id="journal" class="section section--light journal">
+    <div class="container">
+      <div class="journal-header">
+        <span class="section-label reveal-fade">Journal</span>
+        <a href="#" class="journal-all reveal-fade">View all articles</a>
+      </div>
+      <div class="journal-grid">
+        <article class="journal-card reveal-fade" style="--d:.05s">
+          <div class="journal-img" style="background: linear-gradient(135deg, #e0dbd4 0%, #d0cac0 100%);"></div>
+          <div class="journal-body">
+            <span class="journal-cat">Event Production</span>
+            <h4>Behind the Scenes of a Private Fashion Week Dinner</h4>
+            <time>August 2026</time>
+          </div>
+        </article>
+        <article class="journal-card reveal-fade" style="--d:.12s">
+          <div class="journal-img" style="background: linear-gradient(135deg, #ddd8d0 0%, #ccc6bc 100%);"></div>
+          <div class="journal-body">
+            <span class="journal-cat">Mixology</span>
+            <h4>The Art of the Signature Cocktail: Designing Drinks for Luxury Brands</h4>
+            <time>July 2026</time>
+          </div>
+        </article>
+        <article class="journal-card reveal-fade" style="--d:.19s">
+          <div class="journal-img" style="background: linear-gradient(135deg, #d8d4cc 0%, #c8c2b8 100%);"></div>
+          <div class="journal-body">
+            <span class="journal-cat">Luxury Hospitality</span>
+            <h4>What Makes a Truly Exceptional Guest Experience</h4>
+            <time>June 2026</time>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ CONTACT ══════ -->
+  <section id="contact" class="section section--dark contact">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-left">
+          <span class="section-label section-label--light reveal-fade">Contact</span>
+          <h2 class="contact-heading reveal-fade" style="--d:.1s">Let's create something<br><em>exceptional.</em></h2>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form reveal-fade" style="--d:.15s" id="contact-form">
             <div class="form-row">
-              <div class="form-group">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" placeholder="Votre nom" required />
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="votre@email.com" required />
-              </div>
+              <div class="form-field"><input type="text" placeholder="Name *" required /></div>
+              <div class="form-field"><input type="text" placeholder="Company" /></div>
             </div>
-            <div class="form-group">
-              <label for="date">Date souhaitée</label>
-              <input type="date" id="date" name="date" />
+            <div class="form-row">
+              <div class="form-field"><input type="email" placeholder="Email *" required /></div>
+              <div class="form-field"><input type="tel" placeholder="Phone" /></div>
             </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="4" placeholder="Décrivez votre événement ou demande..."></textarea>
+            <div class="form-field"><textarea rows="3" placeholder="Tell us about your project..."></textarea></div>
+            <div class="form-row">
+              <div class="form-field">
+                <select>
+                  <option value="" disabled selected>Estimated budget</option>
+                  <option>Under €10,000</option>
+                  <option>€10,000 – €30,000</option>
+                  <option>€30,000 – €80,000</option>
+                  <option>€80,000+</option>
+                </select>
+              </div>
+              <div class="form-field"><input type="date" placeholder="Preferred date" /></div>
             </div>
             <button type="submit" class="form-submit">
-              <span>Réserver</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+              <span>Let's create something exceptional</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </form>
         </div>
@@ -362,60 +395,35 @@
     </div>
   </section>
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <!-- ══════ FOOTER ══════ -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-top">
         <div class="footer-brand">
-          <svg viewBox="0 0 160 40" width="100" height="25">
-            <text x="80" y="32" font-family="'Bodoni Moda','Didot',serif" font-size="36" font-weight="700"
-                  fill="currentColor" text-anchor="middle" letter-spacing="6">SILËN</text>
-          </svg>
-          <p>L'art du silence,<br>l'essence de la nuit.</p>
+          <span class="footer-logo">SILËN</span>
+          <p>Paris, France</p>
         </div>
-        <div class="footer-links">
-          <h5>Navigation</h5>
-          <a href="#about">À propos</a>
-          <a href="#experiences">Expériences</a>
-          <a href="#gallery">Galerie</a>
+        <div class="footer-col">
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="mailto:hello@silen.agency">hello@silen.agency</a>
+        </div>
+        <div class="footer-col">
+          <a href="#agency">Agency</a>
+          <a href="#services">Services</a>
+          <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
         </div>
-        <div class="footer-links">
-          <h5>Légal</h5>
-          <a href="#">Mentions légales</a>
-          <a href="#">Politique de confidentialité</a>
-          <a href="#">CGV</a>
-        </div>
-        <div class="footer-social">
-          <h5>Suivez-nous</h5>
-          <div class="social-icons">
-            <a href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
-            <a href="#" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-              </svg>
-            </a>
-            <a href="#" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.28 8.28 0 005.58 2.14V11.7a4.83 4.83 0 01-3.77-1.24V6.69h3.77z"/>
-              </svg>
-            </a>
-          </div>
+        <div class="footer-col">
+          <a href="#">Legal Notice</a>
+          <a href="#">Privacy Policy</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 SILËN. Tous droits réservés. L'abus d'alcool est dangereux pour la santé.</p>
+        <p>&copy; 2026 SILËN Agency. All rights reserved.</p>
       </div>
     </div>
   </footer>
-
-  <!-- ═══════════════ CURSOR GLOW (desktop) ═══════════════ -->
-  <div id="cursor-glow"></div>
 
   <script src="script.js"></script>
 </body>
