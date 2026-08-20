@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar 360° – Vue Interactive</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0010; overflow: hidden; font-family: sans-serif; }
+    canvas { display: block; }
+    #info {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-align: center;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(180,0,255,0.8);
+    }
+    #title {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.85);
+      font-size: 18px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      pointer-events: none;
+      text-shadow: 0 0 12px rgba(200,0,255,1);
+    }
+  </style>
+</head>
+<body>
+  <div id="title">Bar – Vue 360°</div>
+  <div id="info">Cliquez et faites glisser la souris pour tourner · Molette pour zoomer</div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0010, 0.055);
+
+    const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 80);
+    camera.position.set(0, 1.6, 4.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.07;
+    controls.minDistance = 1.8;
+    controls.maxDistance = 9;
+    controls.maxPolarAngle = Math.PI / 2 + 0.15;
+    controls.target.set(0, 1.0, 0);
+
+    const mat = (color, rough = 0.6, metal = 0) =>
+      new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: metal });
+
+    function box(w, h, d, material, rx = 0, ry = 0, rz = 0) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+      m.rotation.set(rx, ry, rz);
+      m.castShadow = true;
+      m.receiveShadow = true;
+      return m;
+    }
+
+    function cyl(rt, rb, h, seg, material) {
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), material);
+      m.castShadow = true;
+      return m;
+    }
+
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(30, 30),
+      new THREE.MeshStandardMaterial({ color: 0x100020, roughness: 0.9, metalness: 0 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const ceil = new THREE.Mesh(
+      new THREE.PlaneGeometry(30, 30),
+      new THREE.MeshStandardMaterial({ color: 0x0d0020, roughness: 1 })
+    );
+    ceil.rotation.x = Math.PI / 2;
+    ceil.position.y = 4.5;
+    scene.add(ceil);
+
+    const walls = [
+      { pos: [0, 2.25, -7], rot: [0, 0, 0] },
+      { pos: [0, 2.25, 7], rot: [0, Math.PI, 0] },
+      { pos: [-7, 2.25, 0], rot: [0, Math.PI / 2, 0] },
+      { pos: [7, 2.25, 0], rot: [0, -Math.PI / 2, 0] },
+    ];
+    walls.forEach(({ pos, rot }) => {
+      const w = new THREE.Mesh(
+        new THREE.PlaneGeometry(14, 4.5),
+        new THREE.MeshStandardMaterial({ color: 0x1a0035, roughness: 0.95 })
+      );
+      w.position.set(...pos);
+      w.rotation.set(...rot);
+      w.receiveShadow = true;
+      scene.add(w);
+    });
+
+    const barGroup = new THREE.Group();
+    scene.add(barGroup);
+
+    const bodyMat = new THREE.MeshStandardMaterial({
+      color: 0x111111, roughness: 0.05, metalness: 0.92,
+      envMapIntensity: 1.5
+    });
+    const barBody = box(2.8, 1.05, 0.85, bodyMat);
+    barBody.position.set(0, 0.525, 0);
+    barGroup.add(barBody);
+
+    const marbleMat = new THREE.MeshStandardMaterial({
+      color: 0xe8e0e8, roughness: 0.25, metalness: 0.05
+    });
+    const topSlab = box(2.9, 0.06, 0.92, marbleMat);
+    topSlab.position.set(0, 1.08, 0);
+    barGroup.add(topSlab);
+
+    const steelMat = mat(0x888888, 0.2, 0.9);
+    [[-1.38, 0.525, 0], [1.38, 0.525, 0]].forEach(p => {
+      const pillar = box(0.04, 1.05, 0.87, steelMat);
+      pillar.position.set(...p);
+      barGroup.add(pillar);
+    });
+
+    const shelfMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.25, metalness: 0.85 });
+    const footShelf = box(2.6, 0.04, 0.3, shelfMat);
+    footShelf.position.set(0, 0.22, 0.5);
+    barGroup.add(footShelf);
+
+    const trayGroup = new THREE.Group();
+    trayGroup.position.set(-0.55, 1.08, 0);
+    barGroup.add(trayGroup);
+
+    const stepMat = new THREE.MeshStandardMaterial({ color: 0x444444, roughness: 0.15, metalness: 0.9 });
+    const step1 = box(1.1, 0.32, 0.5, stepMat);
+    step1.position.set(0, 0.16, -0.04);
+    trayGroup.add(step1);
+
+    const step2 = box(1.1, 0.18, 0.65, stepMat);
+    step2.position.set(0, -0.05, 0.12);
+    trayGroup.add(step2);
+
+    function addBottle(x, y, z, color, h = 0.38, r = 0.035) {
+      const g = new THREE.Group();
+      const bottleMat = new THREE.MeshStandardMaterial({
+        color, roughness: 0.08, metalness: 0.0, transparent: true, opacity: 0.82
+      });
+      const body = cyl(r, r * 1.1, h, 12, bottleMat);
+      body.position.y = h / 2;
+      g.add(body);
+      const neck = cyl(r * 0.55, r, h * 0.28, 10, bottleMat);
+      neck.position.y = h + h * 0.14;
+      g.add(neck);
+      const cap = cyl(r * 0.55, r * 0.55, 0.03, 10, mat(0x111111, 0.3, 0.6));
+      cap.position.y = h + h * 0.28 + 0.015;
+      g.add(cap);
+      g.position.set(x, y, z);
+      g.traverse(c => { if (c.isMesh) { c.castShadow = true; } });
+      return g;
+    }
+
+    barGroup.add(addBottle(0.6, 1.08, -0.15, 0xf5e6c0));
+    barGroup.add(addBottle(0.75, 1.08, -0.15, 0xecd48a));
+    barGroup.add(addBottle(0.9, 1.08, -0.15, 0xe8f0e8, 0.44));
+
+    barGroup.add(addBottle(-0.58, 1.08, 0.18, 0xfff8e8, 0.22, 0.028));
+    barGroup.add(addBottle(-0.42, 1.08, 0.18, 0xf5f0c8, 0.22, 0.028));
+
+    function addShaker(x, y, z) {
+      const g = new THREE.Group();
+      const shakerMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1, metalness: 0.95 });
+      const body = cyl(0.055, 0.065, 0.26, 16, shakerMat);
+      body.position.y = 0.13;
+      g.add(body);
+      const lid = cyl(0.05, 0.055, 0.07, 16, shakerMat);
+      lid.position.y = 0.295;
+      g.add(lid);
+      g.position.set(x, y, z);
+      g.traverse(c => { if (c.isMesh) c.castShadow = true; });
+      return g;
+    }
+    barGroup.add(addShaker(0.08, 1.08, -0.05));
+    barGroup.add(addShaker(0.22, 1.08, -0.05));
+
+    const goldShakerMat = new THREE.MeshStandardMaterial({ color: 0xd4a843, roughness: 0.1, metalness: 0.95 });
+    const gShaker = new THREE.Group();
+    const gs1 = cyl(0.05, 0.06, 0.24, 16, goldShakerMat);
+    gs1.position.y = 0.12;
+    gShaker.add(gs1);
+    gShaker.position.set(-0.35, 1.08, 0.04);
+    gShaker.traverse(c => { if (c.isMesh) c.castShadow = true; });
+    barGroup.add(gShaker);
+
+    function addWineGlass(x, y, z) {
+      const g = new THREE.Group();
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0xddeeff, roughness: 0.04, metalness: 0.0, transparent: true, opacity: 0.45
+      });
+      const bowl = cyl(0.04, 0.01, 0.12, 12, glassMat);
+      bowl.position.y = 0.16;
+      g.add(bowl);
+      const stem = cyl(0.005, 0.005, 0.1, 8, glassMat);
+      stem.position.y = 0.05;
+      g.add(stem);
+      const base = cyl(0.025, 0.025, 0.008, 12, glassMat);
+      base.position.y = 0.004;
+      g.add(base);
+      g.position.set(x, y, z);
+      return g;
+    }
+
+    for (let i = 0; i < 6; i++) {
+      barGroup.add(addWineGlass(-0.9 + i * 0.12, 1.47, -0.02));
+    }
+
+    const appleMat = mat(0xcc2200, 0.6, 0);
+    const apple = new THREE.Mesh(new THREE.SphereGeometry(0.04, 10, 10), appleMat);
+    apple.position.set(-0.7, 1.28, 0.08);
+    apple.castShadow = true;
+    barGroup.add(apple);
+
+    const limeMat = mat(0x44bb22, 0.7, 0);
+    const lime = new THREE.Mesh(new THREE.SphereGeometry(0.03, 10, 10), limeMat);
+    lime.position.set(-0.62, 1.28, 0.06);
+    lime.castShadow = true;
+    barGroup.add(lime);
+
+    const sideBarGroup = new THREE.Group();
+    sideBarGroup.position.set(3.2, 0, -1.5);
+    sideBarGroup.rotation.y = -0.4;
+    scene.add(sideBarGroup);
+
+    const sbBody = box(0.75, 0.92, 0.65, bodyMat);
+    sbBody.position.set(0, 0.46, 0);
+    sideBarGroup.add(sbBody);
+
+    const sbTop = box(0.82, 0.05, 0.72, marbleMat);
+    sbTop.position.set(0, 0.945, 0);
+    sideBarGroup.add(sbTop);
+
+    const sbShelf = box(0.7, 0.04, 0.55, shelfMat);
+    sbShelf.position.set(0, 0.55, 0);
+    sideBarGroup.add(sbShelf);
+
+    sideBarGroup.add(addBottle(-0.18, 0.945, 0, 0xf5e6c0, 0.32));
+    sideBarGroup.add(addBottle(0.02, 0.945, 0, 0xecd48a, 0.30));
+    sideBarGroup.add(addShaker(0.2, 0.945, 0));
+
+    const tableMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, metalness: 0.1 });
+    function addPedestal(x, z, h = 1.05, r = 0.3) {
+      const g = new THREE.Group();
+      const col = cyl(0.06, 0.06, h, 12, mat(0xaaaaaa, 0.4, 0.6));
+      col.position.y = h / 2;
+      g.add(col);
+      const top = cyl(r, r, 0.04, 24, tableMat);
+      top.position.y = h + 0.02;
+      g.add(top);
+      g.position.set(x, 0, z);
+      g.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+      scene.add(g);
+    }
+    addPedestal(-3.5, -1, 1.05, 0.35);
+    addPedestal(-4.5, 1.5, 1.05, 0.35);
+    addPedestal(4, 2, 1.05, 0.35);
+    addPedestal(-2.5, 3.5, 0.72, 0.28);
+
+    function addSofa(x, z, ry, color) {
+      const g = new THREE.Group();
+      const sofaMat = mat(color, 0.85, 0);
+      const base = box(1.4, 0.3, 0.7, sofaMat);
+      base.position.y = 0.15;
+      g.add(base);
+      const back = box(1.4, 0.4, 0.12, sofaMat);
+      back.position.set(0, 0.5, -0.29);
+      g.add(back);
+      [[-0.6, 0.45, 0], [0.6, 0.45, 0]].forEach(([ax, ay, az]) => {
+        const arm = box(0.12, 0.18, 0.7, sofaMat);
+        arm.position.set(ax, ay, az);
+        g.add(arm);
+      });
+      g.position.set(x, 0, z);
+      g.rotation.y = ry;
+      g.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+      scene.add(g);
+    }
+    addSofa(-3.5, 1, 0.3, 0xff4400);
+    addSofa(-4, -0.5, -0.5, 0xff3366);
+    addSofa(4.5, -2, Math.PI + 0.3, 0xdd2255);
+
+    function addChandelier(x, y, z, r = 0.5) {
+      const g = new THREE.Group();
+      const frameMat = mat(0xcccccc, 0.2, 0.9);
+      const frame = cyl(r, r, 0.04, 20, frameMat);
+      g.add(frame);
+      const strandMat = new THREE.MeshStandardMaterial({ color: 0xddddff, roughness: 0.05, metalness: 0.7 });
+      for (let i = 0; i < 36; i++) {
+        const angle = (i / 36) * Math.PI * 2;
+        const cr = r * (0.4 + Math.random() * 0.6);
+        const strand = cyl(0.003, 0.003, 0.3 + Math.random() * 0.5, 4, strandMat);
+        strand.position.set(Math.cos(angle) * cr, -0.2 - Math.random() * 0.25, Math.sin(angle) * cr);
+        g.add(strand);
+      }
+      const light = new THREE.PointLight(0xff88ff, 1.5, 5, 2);
+      light.position.y = -0.05;
+      g.add(light);
+      g.position.set(x, y, z);
+      scene.add(g);
+    }
+
+    addChandelier(0, 4.3, 0, 0.65);
+    addChandelier(-3.5, 4.3, -2, 0.5);
+    addChandelier(3.5, 4.3, -2, 0.45);
+    addChandelier(-3, 4.3, 3, 0.4);
+
+    const discoBallMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.0, metalness: 1.0 });
+    const discoBall = new THREE.Mesh(new THREE.SphereGeometry(0.18, 20, 20), discoBallMat);
+    discoBall.position.set(0.5, 4.1, -0.5);
+    scene.add(discoBall);
+
+    function addTableLamp(x, y, z) {
+      const g = new THREE.Group();
+      const shadeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, emissive: 0xffeedd, emissiveIntensity: 0.4 });
+      const shade = cyl(0.14, 0.08, 0.22, 16, shadeMat);
+      shade.position.y = 0.22;
+      g.add(shade);
+      const stemMat = mat(0xcccccc, 0.3, 0.7);
+      const stem = cyl(0.02, 0.02, 0.32, 8, stemMat);
+      stem.position.y = 0.06;
+      g.add(stem);
+      const base = cyl(0.1, 0.1, 0.04, 16, stemMat);
+      base.position.y = 0.02;
+      g.add(base);
+      const bulb = new THREE.PointLight(0xfff5e0, 1.2, 2.5, 2);
+      bulb.position.y = 0.28;
+      g.add(bulb);
+      g.position.set(x, y, z);
+      g.traverse(c => { if (c.isMesh) c.castShadow = true; });
+      scene.add(g);
+    }
+
+    addTableLamp(2.5, 1.05, -1.5);
+    addTableLamp(2.8, 1.05, 1.5);
+    addTableLamp(-5, 1.05, -0.5);
+
+    function addFlowers(x, y, z) {
+      const g = new THREE.Group();
+      const stemMat = mat(0x228822, 0.8, 0);
+      const flowerMat = mat(0xff44aa, 0.8, 0);
+      for (let i = 0; i < 12; i++) {
+        const stem = cyl(0.008, 0.008, 0.3 + Math.random() * 0.4, 4, stemMat);
+        const ax = (Math.random() - 0.5) * 0.3;
+        const az = (Math.random() - 0.5) * 0.3;
+        stem.position.set(ax, (0.3 + Math.random() * 0.4) / 2, az);
+        stem.rotation.set((Math.random() - 0.5) * 0.4, 0, (Math.random() - 0.5) * 0.4);
+        g.add(stem);
+        const flower = new THREE.Mesh(new THREE.SphereGeometry(0.04 + Math.random() * 0.03, 8, 8), flowerMat);
+        flower.position.set(ax + stem.rotation.z * 0.3, 0.3 + Math.random() * 0.4, az + stem.rotation.x * 0.3);
+        g.add(flower);
+      }
+      g.position.set(x, y, z);
+      scene.add(g);
+    }
+
+    addFlowers(5.5, 1.05, -3);
+    addFlowers(-5.5, 1.05, 3);
+
+    scene.add(new THREE.AmbientLight(0x220033, 0.6));
+
+    const purpleUp = new THREE.PointLight(0x9900ff, 3.5, 12, 1.5);
+    purpleUp.position.set(0, 3.8, 0);
+    scene.add(purpleUp);
+
+    const purpleSide1 = new THREE.PointLight(0xcc00ff, 2.5, 8, 2);
+    purpleSide1.position.set(-5, 2.5, -3);
+    scene.add(purpleSide1);
+
+    const purpleSide2 = new THREE.PointLight(0xff00aa, 2, 8, 2);
+    purpleSide2.position.set(5, 2.5, 3);
+    scene.add(purpleSide2);
+
+    const spot = new THREE.SpotLight(0xffffff, 4, 6, Math.PI / 6, 0.4, 1.5);
+    spot.position.set(0, 4, 1);
+    spot.target.position.set(0, 1.08, 0);
+    spot.castShadow = true;
+    spot.shadow.mapSize.set(1024, 1024);
+    scene.add(spot);
+    scene.add(spot.target);
+
+    const pinkAccent = new THREE.PointLight(0xff1188, 2.5, 6, 2);
+    pinkAccent.position.set(5.5, 2.5, -3);
+    scene.add(pinkAccent);
+
+    const pmremGen = new THREE.PMREMGenerator(renderer);
+    const envScene = new THREE.RoomEnvironment(0.5);
+    const envTex = pmremGen.fromScene(envScene).texture;
+    scene.environment = envTex;
+    envScene.dispose();
+    pmremGen.dispose();
+
+    let t = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      t += 0.01;
+      discoBall.rotation.y = t * 0.5;
+      purpleUp.intensity = 3.2 + Math.sin(t * 0.7) * 0.4;
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+  </script>
+</body>
+</html>
