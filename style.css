@@ -402,7 +402,7 @@ img, video, svg { display: block; max-width: 100%; }
 .exp-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(160px, auto);
+  grid-auto-rows: minmax(200px, auto);
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -410,15 +410,26 @@ img, video, svg { display: block; max-width: 100%; }
   display: flex; flex-direction: column;
   justify-content: flex-end;
   padding: 2rem 1.8rem;
-  background: var(--off-white);
-  border: 1px solid var(--border-l);
+  background: var(--dark);
+  border: none;
   border-radius: 3px;
   position: relative;
   overflow: hidden;
-  transition: background .5s var(--ease), transform .5s var(--ease);
+  background-size: cover;
+  background-position: center;
+  transition: transform .5s var(--ease);
+}
+.exp-item::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(17,17,16,.15) 0%, rgba(17,17,16,.65) 100%);
+  transition: background .5s var(--ease);
+  z-index: 1;
+}
+.exp-item:hover::before {
+  background: linear-gradient(180deg, rgba(17,17,16,.05) 0%, rgba(17,17,16,.5) 100%);
 }
 .exp-item:hover {
-  background: var(--stone);
   transform: translateY(-3px);
 }
 .exp-item--tall {
@@ -428,15 +439,17 @@ img, video, svg { display: block; max-width: 100%; }
   display: block;
   font-size: .6rem; font-weight: 500;
   letter-spacing: .2em; text-transform: uppercase;
-  color: var(--olive);
+  color: rgba(255,255,255,.6);
   margin-bottom: .6rem;
+  position: relative; z-index: 2;
 }
 .exp-title {
   font-family: var(--serif);
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 400;
-  color: var(--charcoal);
+  color: var(--white);
   letter-spacing: .01em;
+  position: relative; z-index: 2;
 }
 
 /* ── Clients Marquee ────────────────────────────────────────── */
@@ -544,15 +557,32 @@ img, video, svg { display: block; max-width: 100%; }
   gap: 1.2rem;
 }
 .venue-item {
-  padding: 2.5rem 2rem;
-  background: var(--off-white);
-  border: 1px solid var(--border-l);
+  padding: 0;
+  background: var(--dark);
+  border: none;
   border-radius: 3px;
-  transition: background .5s var(--ease), transform .5s var(--ease);
+  overflow: hidden;
+  transition: transform .5s var(--ease);
 }
 .venue-item:hover {
-  background: var(--stone);
   transform: translateY(-3px);
+}
+.venue-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s var(--ease);
+}
+.venue-item:hover .venue-img {
+  transform: scale(1.04);
+}
+.venue-img-wrap {
+  overflow: hidden;
+}
+.venue-body {
+  padding: 2rem 2rem 2.2rem;
+  background: var(--off-white);
 }
 .venue-name {
   font-family: var(--serif);

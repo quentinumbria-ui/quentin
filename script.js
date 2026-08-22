@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!btn) return;
       const original = btn.innerHTML;
 
-      btn.innerHTML = '<span>Sent ✓</span>';
+      btn.innerHTML = '<span>Envoyé ✓</span>';
       btn.style.background = 'var(--olive)';
       btn.style.color = 'var(--white)';
       btn.style.borderColor = 'var(--olive)';
